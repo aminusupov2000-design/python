@@ -12,6 +12,6 @@ def main(message):
     bot.send_message(message.chat.id,'')
 
 
-
+#наблюдай сохранить файл забыл
 
 bot.polling(non_stop=True)
