@@ -1,9 +1,11 @@
+save =""
 instructions ='Ты помощник по математике. Решай пошагово, пиши кратко и понятно. В конце дай ответ. '
 import telebot
 import logging
-from datetime import datetime
+from google import genai #возможно ошибка здесь 
 
-import logging
+client = genai.Client(api_key="AIzaSyDnagkgb9BZu6CFMttjZAA06qOIleiZNj0")
+
 
 # Настройка логирования
 logging.basicConfig(
@@ -17,6 +19,12 @@ logging.basicConfig(
 
 bot=telebot.TeleBot('8374810935:AAGduBipbU_PgHGT3SBVziICNO4_5kzaSAg')
 
+@bot.message_handler(content_types=['text'])
+def save_text(message):
+    global save
+    save = message.text
+    print(save)
+    bot.send_message(message.chat.id, f"Вы написали: {save}")
 
 
 @bot.message_handler(commands=['start'])
@@ -39,4 +47,5 @@ def get_text(message):
         return    
     bot.send_message (message.chat.id,'вы отправили текст')
         
+
 bot.polling(non_stop=True)
